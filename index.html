@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>Hoe laat is 't?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="icon.png" />
+  <script src="d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <article>
+    <div id="question">
+      - Hoe laat is 't?
+    </div>
+    <div id="answer">
+      - Het is <span id="time">kwart over appel</span>!
+    </div>
+    <div id="emoji" />
+  </article>
+  <script>
+    var fruit = [
+      "druif",
+      "banaan",
+      "appel",
+      "citroen",
+      "meloen",
+      "ananas",
+      "peer",
+      "kers",
+      "perzik",
+      "mandarijn",
+      "aardbei",
+      "tomaat"
+    ];
+
+    var colors = {
+      "tomaat": "f34d25",
+      "perzik": "e57759",
+      "peer": "d1dd42",
+      "meloen": "fc4f5d",
+      "mandarijn": "f8a127",
+      "kers": "d64055",
+      "druif": "ce41c6",
+      "citroen": "ffee93",
+      "banaan": "e8cb5d",
+      "appel": "91bb45",
+      "ananas": "f6c52a",
+      "aardbei": "f65551"
+    };
+
+    var minutes = [
+      "één",
+      "twee",
+      "drie",
+      "vier",
+      "vijf",
+      "zes",
+      "zeven",
+      "acht",
+      "negen",
+      "tien",
+      "elf",
+      "twaalf",
+      "dertien",
+      "veertien",
+      "vijftien",
+      "zestien",
+      "zeventien",
+      "achttien",
+      "negentien",
+      "twingtig"
+    ];
+
+    var tenMinutes = [
+      "tien",
+      "twintig",
+      "dertig",
+      "veertig",
+      "vijftig"
+    ]
+
+    var timeStrings = [
+      {
+        "minutes": 14,
+        "str": "over",
+        "showMinutes": true,
+        "hourModifier": 0
+      },
+      {
+        "minutes": 15,
+        "str": "kwart over",
+        "showMinutes": false,
+        "hourModifier": 0
+      },
+      {
+        "minutes": 19,
+        "str": "over",
+        "showMinutes": true,
+        "hourModifier": 0,
+      },
+      {
+        "minutes": 29,
+        "str": "voor half",
+        "showMinutes": true,
+        "hourModifier": 1,
+        "minuteInverse": 30
+      },
+      {
+        "minutes": 30,
+        "str": "half",
+        "showMinutes": false,
+        "hourModifier": 1
+      },
+      {
+        "minutes": 44,
+        "str": "over half",
+        "showMinutes": true,
+        "hourModifier": 1,
+        "minuteInverse": 30
+      },
+      {
+        "minutes": 45,
+        "str": "kwart voor",
+        "showMinutes": false,
+        "hourModifier": 1
+      },
+      {
+        "minutes": 59,
+        "str": "voor",
+        "showMinutes": true,
+        "hourModifier": 1,
+        "minuteInverse": 60
+      }
+    ];
+
+    function update() {
+      var d = new Date,
+          h = d.getHours() % 12,
+          m = d.getMinutes();
+
+      var r = getFruit(8, m);
+      document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r[0] + ".png')";
+      document.getElementById("time").innerHTML = r[1];
+      document.body.style.backgroundColor = "#" + colors[r[0]];
+    }
+
+    function getFruit(h, m) {
+      if (m == 0) {
+        return [
+          fruit[h % 12],
+          fruit[h % 12]
+        ];
+      } else {
+        t = timeStrings[timeStrings.length - 1];
+        for (var i = timeStrings.length - 1; i >= 0; i--) {
+          if (m <= timeStrings[i].minutes) {
+            t = timeStrings[i];
+          }
+        }
+        mStr = '';
+        if (t.showMinutes) {
+          if (t.minuteInverse) {
+            m = Math.abs(t.minuteInverse - m);
+          }
+          mStr = getNumber(m) + ' ';
+        }
+
+        return [
+          fruit[(h + t.hourModifier) % fruit.length],
+          mStr + t.str + ' ' + fruit[(h + t.hourModifier) % fruit.length]
+        ]
+      }
+    }
+
+    function getNumber(m) {
+      if (m % 10 == 0) {
+        return tenMinutes[(m / 10) - 1];
+      } else if (m <= minutes.length) {
+        return minutes[m - 1];
+      } else {
+        return m
+      }
+    }
+
+    setInterval(update, 60000);
+    update();
+  </script>
+</body>
+</html>
