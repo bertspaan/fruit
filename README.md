@@ -1,13 +1,15 @@
-1. druif
-2. banaan
-3. appel
-4. citroen
-5. meloen
-6. ananas
-7. peer
-8. kers
-9. perzik
-10. mandarijn
-11. aardbei
-12. tomaat
+- „Hoe laat is het?“
+- „[Het is zes over half mandarijn!](http://bertspaan.nl/fruit)“
 
+1. Druif
+2. Banaan
+3. Appel
+4. Citroen
+5. Meloen
+6. Ananas
+7. Peer
+8. Kers
+9. Perzik
+10. Mandarijn
+11. Aardbei
+12. Tomaat
