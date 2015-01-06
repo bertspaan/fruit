@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Bree Serif";
-  src: url(foBreeSerif-Regular.otf);
+  src: url(BreeSerif-Regular.otf);
 }
 
 body {
@@ -22,6 +22,20 @@ div {
   margin: 40px 0;
 }
 
+#gradient {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;
+
+  background: radial-gradient(circle at center 390px, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+}
+
 #answer {
   text-align: right;
 }
@@ -29,9 +43,9 @@ div {
 #emoji {
   background-position: center center;
   background-repeat: no-repeat;
-  height: 160px;
-  position: absolute;
-  bottom: 40px;
+  position: relative;
+  margin-top: 70px;
   width: 160px;
+  height: 160px;
   left: calc(50% - 80px);
 }
