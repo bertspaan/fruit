@@ -143,9 +143,11 @@
       document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r[0] + ".png')";
       document.getElementById("time").innerHTML = r[1];
       document.body.style.backgroundColor = "#" + colors[r[0]];
-      document.getElementById("favicon").href = "emoji/" + r[0] + ".png')";
 
-
+      var favicon = document.getElementById("favicon")
+      favicon.href = "emoji/" + r[0] + ".png')";
+      document.head.removeChild(favicon);
+      document.head.appendChild(favicon);
     }
 
     function getFruit(h, m) {
