@@ -139,7 +139,7 @@
           h = d.getHours() % 12,
           m = d.getMinutes();
 
-      var r = getFruit(8, m);
+      var r = getFruit(h, m);
       document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r[0] + ".png')";
       document.getElementById("time").innerHTML = r[1];
       document.body.style.backgroundColor = "#" + colors[r[0]];
