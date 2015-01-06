@@ -5,7 +5,7 @@
   <title>Hoe laat is 't?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="emoji/banaan.png" />
+  <link rel="icon" id="favicon" type="image/png" href="emoji/banaan.png" />
 </head>
 <body>
   <article>
@@ -143,6 +143,9 @@
       document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r[0] + ".png')";
       document.getElementById("time").innerHTML = r[1];
       document.body.style.backgroundColor = "#" + colors[r[0]];
+      document.getElementById("favicon").href = "emoji/" + r[0] + ".png')";
+
+
     }
 
     function getFruit(h, m) {
