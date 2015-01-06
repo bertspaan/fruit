@@ -139,7 +139,7 @@
       var r = getFruit(h, m);
       document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r[0] + ".png')";
       document.getElementById("time").innerHTML = r[1];
-      document.body.style.backgroundColor = "#" + shadeColor(colors[r[0]], -30);
+      document.body.style.backgroundColor = "#" + shadeColor(colors[r[0]], -20);
 
       var favicon = document.getElementById("favicon")
       favicon.href = "emoji/" + r[0] + ".png')";
