@@ -49,6 +49,20 @@ div {
   left: calc(50% - 80px);
 }
 
+#twitter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 20px;
+  font-size: 25px;
+}
+
+#twitter a,
+#twitter a:visited {
+  color: white;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 700px) {
   body {
     font-size: 30px;

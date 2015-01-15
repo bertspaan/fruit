@@ -13,8 +13,11 @@
     <div id="message">
       Het is <span id="time">kwart over appel</span>.
     </div>
-    <div id="emoji" />
+    <div id="emoji"></div>
   </article>
+  <div id="twitter"><a id="twitter-link" href="">
+    Tweet!
+  </a></div>
   <script>
     var fruit = [
       "druif",
@@ -145,6 +148,12 @@
       favicon.href = "emoji/" + r[0] + ".png')";
       document.head.removeChild(favicon);
       document.head.appendChild(favicon);
+
+      var twitterLink =
+        "http://twitter.com/share?url=http://whatfruitisit.com&text=Het+is+" +
+        r[1].split(" ").join("+") +
+        "!+@bertspaan&hashtags=appel,banaan,kiwi,druif";
+      document.getElementById("twitter-link").href = twitterLink;
     }
 
     function getFruit(h, m) {
