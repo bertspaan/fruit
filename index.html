@@ -2,6 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="utf-8">
+  <meta name="author" content="Bert Spaan">
   <title>Hoe laat is 't?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="style.css">
@@ -11,147 +12,278 @@
   <article>
     <div id="gradient"></div>
     <div id="message">
-      Het is <span id="time">kwart over appel</span>.
+      <span id="time">Het is kwart over appel</span>.
     </div>
     <div id="emoji"></div>
+    <div id="twitter"><a id="twitter-link" href="http://twitter.com/share?url=http://whatfruitisit.com&amp;text=Het+is+dertien+over+half+mandarijn!+@bertspaan&amp;hashtags=appel,banaan,kiwi,druif,whatfruitisit,">
+        Tweet!
+      </a></div>
+    <div id="lang">
+      <a href="#" id="lang-en" class="lang-link" data-lang="en">EN</a> |
+      <a href="#" id="lang-nl" class="lang-link" data-lang="nl">NL</a>
+    </div>
   </article>
-  <div id="twitter"><a id="twitter-link" href="">
-    Tweet!
-  </a></div>
   <script>
-    var fruit = [
-      "druif",
-      "banaan",
-      "appel",
-      "citroen",
-      "meloen",
-      "ananas",
-      "peer",
-      "kers",
-      "perzik",
-      "mandarijn",
-      "aardbei",
-      "tomaat"
+    var lang = 'en';
+    var disableHashChange = false;
+
+    var order = [
+      "grape",
+      "banana",
+      "apple",
+      "lemon",
+      "watermelon",
+      "pineapple",
+      "pear",
+      "cherry",
+      "peach",
+      "tangerine",
+      "strawberry",
+      "tomato"
     ];
 
     var colors = {
-      "tomaat": "f34d25",
-      "perzik": "e57759",
-      "peer": "d1dd42",
-      "meloen": "fc4f5d",
-      "mandarijn": "f8a127",
-      "kers": "d64055",
-      "druif": "ce41c6",
-      "citroen": "ffee93",
-      "banaan": "e8cb5d",
-      "appel": "91bb45",
-      "ananas": "f6c52a",
-      "aardbei": "f65551"
+      "tomato": "f34d25",
+      "peach": "e57759",
+      "pear": "d1dd42",
+      "watermelon": "fc4f5d",
+      "tangerine": "f8a127",
+      "cherry": "d64055",
+      "grape": "ce41c6",
+      "lemon": "ffee93",
+      "banana": "e8cb5d",
+      "apple": "91bb45",
+      "pineapple": "f6c52a",
+      "strawberry": "f65551"
     };
 
-    var minutes = [
-      "één",
-      "twee",
-      "drie",
-      "vier",
-      "vijf",
-      "zes",
-      "zeven",
-      "acht",
-      "negen",
-      "tien",
-      "elf",
-      "twaalf",
-      "dertien",
-      "veertien",
-      "vijftien",
-      "zestien",
-      "zeventien",
-      "achttien",
-      "negentien",
-      "twintig"
-    ];
 
-    var tenMinutes = [
-      "tien",
-      "twintig",
-      "dertig",
-      "veertig",
-      "vijftig"
-    ]
-
-    var timeStrings = [
-      {
-        "minutes": 14,
-        "str": "over",
-        "showMinutes": true,
-        "hourModifier": 0
+    var languages = {
+      nl: {
+        title: 'Hoe laat is \'t?',
+        fruit: {
+          "grape": "druif",
+          "banana": "banaan",
+          "apple": "appel",
+          "lemon": "citroen",
+          "watermelon": "meloen",
+          "pineapple": "ananas",
+          "pear": "peer",
+          "cherry": "kers",
+          "peach": "perzik",
+          "tangerine": "mandarijn",
+          "strawberry": "aardbei",
+          "tomato": "tomaat"
+        },
+        prefix: 'Het is',
+        minutes: [
+          "één",
+          "twee",
+          "drie",
+          "vier",
+          "vijf",
+          "zes",
+          "zeven",
+          "acht",
+          "negen",
+          "tien",
+          "elf",
+          "twaalf",
+          "dertien",
+          "veertien",
+          "vijftien",
+          "zestien",
+          "zeventien",
+          "achttien",
+          "negentien",
+          "twintig"
+        ],
+        tenMinutes: [
+          "tien",
+          "twintig",
+          "dertig",
+          "veertig",
+          "vijftig"
+        ],
+        timeStrings: [
+          {
+            "minutes": 14,
+            "str": "over",
+            "showMinutes": true,
+            "hourModifier": 0
+          },
+          {
+            "minutes": 15,
+            "str": "kwart over",
+            "showMinutes": false,
+            "hourModifier": 0
+          },
+          {
+            "minutes": 19,
+            "str": "over",
+            "showMinutes": true,
+            "hourModifier": 0,
+          },
+          {
+            "minutes": 29,
+            "str": "voor half",
+            "showMinutes": true,
+            "hourModifier": 1,
+            "minuteInverse": 30
+          },
+          {
+            "minutes": 30,
+            "str": "half",
+            "showMinutes": false,
+            "hourModifier": 1
+          },
+          {
+            "minutes": 44,
+            "str": "over half",
+            "showMinutes": true,
+            "hourModifier": 1,
+            "minuteInverse": 30
+          },
+          {
+            "minutes": 45,
+            "str": "kwart voor",
+            "showMinutes": false,
+            "hourModifier": 1
+          },
+          {
+            "minutes": 59,
+            "str": "voor",
+            "showMinutes": true,
+            "hourModifier": 1,
+            "minuteInverse": 60
+          }
+        ]
       },
-      {
-        "minutes": 15,
-        "str": "kwart over",
-        "showMinutes": false,
-        "hourModifier": 0
-      },
-      {
-        "minutes": 19,
-        "str": "over",
-        "showMinutes": true,
-        "hourModifier": 0,
-      },
-      {
-        "minutes": 29,
-        "str": "voor half",
-        "showMinutes": true,
-        "hourModifier": 1,
-        "minuteInverse": 30
-      },
-      {
-        "minutes": 30,
-        "str": "half",
-        "showMinutes": false,
-        "hourModifier": 1
-      },
-      {
-        "minutes": 44,
-        "str": "over half",
-        "showMinutes": true,
-        "hourModifier": 1,
-        "minuteInverse": 30
-      },
-      {
-        "minutes": 45,
-        "str": "kwart voor",
-        "showMinutes": false,
-        "hourModifier": 1
-      },
-      {
-        "minutes": 59,
-        "str": "voor",
-        "showMinutes": true,
-        "hourModifier": 1,
-        "minuteInverse": 60
+      en: {
+        title: 'What time is it?',
+        fruit: {
+          "grape": "grape",
+          "banana": "banana",
+          "apple": "apple",
+          "lemon": "lemon",
+          "melon": "melon",
+          "pineapple": "pineapple",
+          "pear": "pear",
+          "cherry": "cherry",
+          "peach": "peach",
+          "tangerine": "tangerine",
+          "strawberry": "strawberry",
+          "tomato": "tomato"
+        },
+        prefix: 'It\'s',
+        minutes: [
+          "one",
+          "two",
+          "three",
+          "four",
+          "five",
+          "six",
+          "seven",
+          "eight",
+          "nine",
+          "ten",
+          "eleven",
+          "twelve",
+          "thirteen",
+          "fourteen",
+          "fifteen",
+          "sixteen",
+          "seventeen",
+          "eighteen",
+          "nineteen",
+          "twenty",
+          "twenty one",
+          "twenty two",
+          "twenty three",
+          "twenty four",
+          "twenty five",
+          "twenty six",
+          "twenty seven",
+          "twenty eight",
+          "twenty nine"
+        ],
+        tenMinutes: [
+          "ten",
+          "twenty",
+          "thirty",
+          "fourty"
+        ],
+        timeStrings: [
+          {
+            "minutes": 14,
+            "str": "past",
+            "showMinutes": true,
+            "hourModifier": 0
+          },
+          {
+            "minutes": 15,
+            "str": "quarter past",
+            "showMinutes": false,
+            "hourModifier": 0
+          },
+          {
+            "minutes": 29,
+            "str": "past",
+            "showMinutes": true,
+            "hourModifier": 0,
+          },
+          {
+            "minutes": 30,
+            "str": "half past",
+            "showMinutes": false,
+            "hourModifier": 0
+          },
+          {
+            "minutes": 44,
+            "str": "to",
+            "showMinutes": true,
+            "hourModifier": 1,
+            "minuteInverse": 60
+          },
+          {
+            "minutes": 45,
+            "str": "quarter to",
+            "showMinutes": false,
+            "hourModifier": 1
+          },
+          {
+            "minutes": 59,
+            "str": "to",
+            "showMinutes": true,
+            "hourModifier": 1,
+            "minuteInverse": 60
+          }
+        ]
       }
-    ];
+    };
 
     function update() {
-      var d = new Date,
-          h = d.getHours() % 12,
-          m = d.getMinutes();
+      var d = new Date;
+      var h = d.getHours() % 12;
+      var m = d.getMinutes();
 
       var r = getFruit(h, m);
-      document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r[0] + ".png')";
-      document.getElementById("time").innerHTML = r[1];
-      document.body.style.backgroundColor = "#" + shadeColor(colors[r[0]], -20);
+      var r = getFruit(1, 40);
+
+      var str = r.prefix + ' ' + r.m + r.t + ' ' + r.language;
+
+      document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r.fruit + ".png')";
+      document.getElementById("time").innerHTML = str;
+      document.body.style.backgroundColor = "#" + shadeColor(colors[r.fruit], -20);
 
       var favicon = document.getElementById("favicon")
-      favicon.href = "emoji/" + r[0] + ".png')";
+      favicon.href = "emoji/" + r.fruit + ".png')";
       document.head.removeChild(favicon);
       document.head.appendChild(favicon);
 
       var twitterLink =
-        "http://twitter.com/share?url=http://whatfruitisit.com&text=Het+is+" +
-        r[1].split(" ").join("+") +
+        'http://twitter.com/share?url=http://whatfruitisit.com&text=' +
+        str.split(' ').join('+') +
         "!+@bertspaan&hashtags=appel,banaan,kiwi,druif,whatfruitisit,";
       document.getElementById("twitter-link").href = twitterLink;
     }
@@ -163,6 +295,7 @@
           fruit[h % 12]
         ];
       } else {
+        var timeStrings = languages[lang].timeStrings;
         t = timeStrings[timeStrings.length - 1];
         for (var i = timeStrings.length - 1; i >= 0; i--) {
           if (m <= timeStrings[i].minutes) {
@@ -177,10 +310,15 @@
           mStr = getNumber(m) + ' ';
         }
 
-        return [
-          fruit[(h + t.hourModifier) % fruit.length],
-          mStr + t.str + ' ' + fruit[(h + t.hourModifier) % fruit.length]
-        ]
+        var fruit = order[(h + t.hourModifier) % order.length];
+
+        return {
+          fruit: fruit,
+          prefix: languages[lang].prefix,
+          language: languages[lang].fruit[fruit],
+          m: mStr,
+          t: t.str
+        };
       }
     }
 
@@ -195,16 +333,52 @@
 
     function getNumber(m) {
       if (m % 10 == 0) {
-        return tenMinutes[(m / 10) - 1];
-      } else if (m <= minutes.length) {
-        return minutes[m - 1];
+        return languages[lang].tenMinutes[(m / 10) - 1];
+      } else if (m <= languages[lang].minutes.length) {
+        return languages[lang].minutes[m - 1];
       } else {
         return m
       }
     }
 
+    var setLang = function(e) {
+      lang = this.getAttribute('data-lang');
+      console.log(lang)
+      disableHashChange = true;
+      window.location.hash = lang;
+
+      disableHashChange = false;
+
+      e.preventDefault();
+
+      update();
+    };
+
+    var langLinks = document.getElementsByClassName('lang-link');
+    for (var i = 0; i < langLinks.length; i++) {
+      langLinks[i].addEventListener('click', setLang);
+    }
+
+    window.onhashchange = function() {
+      if (!disableHashChange) {
+        updateHash();
+      }
+    };
+
+    function updateHash() {
+      var hash = window.location.hash.slice(1);
+
+      if (languages[hash]) {
+        lang = hash;
+      } else {
+        lang = 'en';
+      }
+
+      update();
+    }
+
     setInterval(update, 10000);
-    update();
+    updateHash();
   </script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

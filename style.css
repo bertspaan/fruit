@@ -20,9 +20,9 @@ article {
   text-align: center;
 }
 
-div {
+#message {
   width: 100%;
-  margin: 40px 0;
+  margin: 140px 0;
 }
 
 #gradient {
@@ -57,8 +57,16 @@ div {
   font-size: 25px;
 }
 
-#twitter a,
-#twitter a:visited {
+#lang {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  font-size: 25px;
+}
+
+a,
+a:visited {
   color: white;
   text-decoration: none;
 }
@@ -74,5 +82,14 @@ div {
 
   #twitter {
     font-size: 18px;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  #message {
+    margin: 40px 0;
+  }
+  #emoji {
+    margin-top: 40px;
   }
 }
