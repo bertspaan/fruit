@@ -271,6 +271,8 @@
 
       var str = r.prefix + ' ' + r.m + r.t + ' ' + r.language;
 
+      window.document.title = r.title;
+
       document.getElementById("emoji").style.backgroundImage = "url('emoji/" + r.fruit + ".png')";
       document.getElementById("time").innerHTML = str;
       document.body.style.backgroundColor = "#" + shadeColor(colors[r.fruit], -20);
@@ -314,6 +316,7 @@
         return {
           fruit: fruit,
           prefix: languages[lang].prefix,
+          title: languages[lang].title,
           language: languages[lang].fruit[fruit],
           m: mStr,
           t: t.str
