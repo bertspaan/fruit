@@ -290,20 +290,21 @@
     }
 
     function getFruit(h, m) {
+      var fruit;
+      var mStr = '';
+      var tStr = '';
+
       if (m == 0) {
-        return [
-          fruit[h % 12],
-          fruit[h % 12]
-        ];
+        fruit = order[h % order.length];
       } else {
         var timeStrings = languages[lang].timeStrings;
-        t = timeStrings[timeStrings.length - 1];
+        var t = timeStrings[timeStrings.length - 1];
         for (var i = timeStrings.length - 1; i >= 0; i--) {
           if (m <= timeStrings[i].minutes) {
             t = timeStrings[i];
           }
         }
-        mStr = '';
+
         if (t.showMinutes) {
           if (t.minuteInverse) {
             m = Math.abs(t.minuteInverse - m);
@@ -311,17 +312,18 @@
           mStr = getNumber(m) + ' ';
         }
 
-        var fruit = order[(h + t.hourModifier) % order.length];
-
-        return {
-          fruit: fruit,
-          prefix: languages[lang].prefix,
-          title: languages[lang].title,
-          language: languages[lang].fruit[fruit],
-          m: mStr,
-          t: t.str
-        };
+        fruit = order[(h + t.hourModifier) % order.length];
+        tStr = t.str;
       }
+
+      return {
+        fruit: fruit,
+        prefix: languages[lang].prefix,
+        title: languages[lang].title,
+        language: languages[lang].fruit[fruit],
+        m: mStr,
+        t: tStr
+      };
     }
 
     function shadeColor(color, percent) {
