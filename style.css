@@ -85,7 +85,7 @@ a:visited {
   }
 }
 
-@media screen and (max-height: 500px) {
+@media screen and (max-height: 400px) {
   #message {
     margin: 40px 0;
   }
