@@ -15,10 +15,10 @@
       <span id="time">Het is kwart over appel</span>.
     </div>
     <div id="emoji"></div>
-    <div id="lang">
+    <!--<div id="lang">
       <a href="#" id="lang-en" class="lang-link" data-lang="en">EN</a> |
       <a href="#" id="lang-nl" class="lang-link" data-lang="nl">NL</a>
-    </div>
+    </div>-->
   </article>
   <script>
     var lang = 'nl';
@@ -342,41 +342,41 @@
       }
     }
 
-    var setLang = function(e) {
-      lang = this.getAttribute('data-lang');
+//     var setLang = function(e) {
+//       lang = this.getAttribute('data-lang');
 
-      disableHashChange = true;
-      window.location.hash = lang;
+//       disableHashChange = true;
+//       window.location.hash = lang;
 
-      disableHashChange = false;
+//       disableHashChange = false;
 
-      e.preventDefault();
+//       e.preventDefault();
 
-      update();
-    };
+//       update();
+//     };
 
-    var langLinks = document.getElementsByClassName('lang-link');
-    for (var i = 0; i < langLinks.length; i++) {
-      langLinks[i].addEventListener('click', setLang);
-    }
+//     var langLinks = document.getElementsByClassName('lang-link');
+//     for (var i = 0; i < langLinks.length; i++) {
+//       langLinks[i].addEventListener('click', setLang);
+//     }
 
-    window.onhashchange = function() {
-      if (!disableHashChange) {
-        updateHash();
-      }
-    };
+//     window.onhashchange = function() {
+//       if (!disableHashChange) {
+//         updateHash();
+//       }
+//     };
 
-    function updateHash() {
-      var hash = window.location.hash.slice(1);
+//     function updateHash() {
+//       var hash = window.location.hash.slice(1);
 
-      if (languages[hash]) {
-        lang = hash;
-      } else {
-        lang = 'nl';
-      }
+//       if (languages[hash]) {
+//         lang = hash;
+//       } else {
+//         lang = 'nl';
+//       }
 
-      update();
-    }
+//       update();
+//     }
 
     setInterval(update, 10000);
     updateHash();
